@@ -1,0 +1,43 @@
+The other four squares are already on the open list, 
+so we need to check if the paths to those squares are any better using this square to get there, 
+using G scores as our point of reference. 
+
+Let’s look at the square right above our selected square.
+ 
+Its current G score is 14. 
+If we instead went through the current square to get there, 
+the G score would be equal to 20 
+(10, which is the G score to get to the current square, 
+plus 10 more to go vertically to the one just above it).
+ 
+A G score of 20 is higher than 14, 
+so this is not a better path.
+ 
+That should make sense if you look at the diagram.
+ 
+It’s more direct to get to that square from the starting square by simply moving one square diagonally to get there, 
+rather than moving horizontally one square, and then vertically one square.
+
+////////////////////////////JPS + A* Algorithm////////////////////////////
+1. Pick a node with lowest F value.
+
+2. If this node has parent node, check the direction of the node. That is, direction coming FROM parent node to current node.
+2-1. Assuming there is at least one forced neighbor, check if there are any forced neighbor.
+3. If this node has no parent node, pick adjacent nodes and mark their parent node as current node.
+
+4. From each node to check, get direction of the node.
+5. If the node is diagonal check, unless there is forced neighbor, perform diagonal check until it reaches to the end of the map or the an obstacle.
+5-1. If the node has forced neighbor after performing horizontal or vertical check, return current node and move to the next node.
+6. If the node is either horizontal or vertical check, as soon as the checking node has forced neighbor, add it and stop the searching.
+
+7. Add all the successor nodes to the open list and calculate their G, H, and F value.
+7-1. All nodes added right now had the parent node as the node picked from #2
+
+8. Add the #2 node to closed list.
+
+8. Repeat until the goal node is in the closed list.
+
+//////////////////////// Plans For The Path Finding Algorithm////////////////////////////
+1. Basic A* path finding
+2. Merge Jump-point search algorithm to A* path finding
+3. Finalize Jump* Path finding algorithm
